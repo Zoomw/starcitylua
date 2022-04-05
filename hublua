@@ -1,0 +1,101 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("HUB Star City", "DarkTheme")
+
+local Tab = Window:NewTab("Opcoes")
+local Section = Tab:NewSection("Scripts Executaveis ao server")
+
+Section:NewButton("Dinheiro infinito", "Você fica com dinheiro inf", function()
+    local A_1 = 
+{
+    [1] = "", 
+    [2] = "Skyline", 
+    [3] = "Group1", 
+    [4] = 0, 
+    [5] = 19, 
+    [6] = -120222222220000
+}
+local A_2 = 47268
+local Event = game:GetService("ReplicatedStorage").Events.buyVehicle
+Event:FireServer(A_1, A_2)
+
+end)
+
+Section:NewButton("Pushar armas HUB", "Uma hub de armas", function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/4Raul/Lua-Projects/main/StarCityArmas.lua'),true))()
+    
+end)
+
+
+Section:NewButton("Kill all", "Kill all Players", function()
+      if not _G.code then
+    _G.code = game:GetService("ReplicatedStorage").ACS_Engine.Events.AcessId:InvokeServer(game.Players.LocalPlayer.UserId).."-"..game.Players.LocalPlayer.UserId
+end
+local vitima = "all" -- nome (pode ser curto) ou "all" pra matar geral :sunglasses:
+local code = _G.code
+local tool
+for i,v in pairs(game.Teams:GetDescendants()) do
+if v.Name == "HK416" then
+tool = v
+break
+end
+end
+local module = require(tool.ACS_Settings)
+local ModTable = {
+
+    camRecoilMod     = {
+        RecoilTilt     = 1,
+        RecoilUp     = 1,
+        RecoilLeft     = 1,
+        RecoilRight = 1
+    }
+
+    ,gunRecoilMod    = {
+        RecoilUp     = 1,
+        RecoilTilt     = 1,
+        RecoilLeft     = 1,
+        RecoilRight = 1
+    }
+
+    ,ZoomValue         = 70
+    ,Zoom2Value     = 70
+    ,AimRM             = 1
+    ,SpreadRM         = 1
+    ,DamageMod         = 1
+    ,minDamageMod     = 1
+
+    ,MinRecoilPower             = 1
+    ,MaxRecoilPower             = 1
+    ,RecoilPowerStepAmount         = 1
+
+    ,MinSpread                     = 1
+    ,MaxSpread                     = 1                    
+    ,AimInaccuracyStepAmount     = 1
+    ,AimInaccuracyDecrease         = 1
+    ,WalkMult                     = 1
+    ,adsTime                     = 1        
+    ,MuzzleVelocity             = 1
+}  
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    if v.Character and (v.Name:lower():match(vitima) or vitima == "all") and v.Name ~= game.Players.LocalPlayer.Name then
+        task.spawn(function()
+            local s,e = pcall(function()
+                game:GetService("ReplicatedStorage").ACS_Engine.Events.Damage:InvokeServer(tool, v.Character.Humanoid, 8, 1, module, ModTable,nil,nil,code)
+            end)
+            warn(s,e)
+        end)
+        task.wait()
+    end
+end
+
+end)
+
+
+
+
+
+local Tab = Window:NewTab("Creditos")
+local Section = Tab:NewSection("HUB by ZOOM Zz#2551")
+
+label:UpdateLabel("Algumas scrips feitas por 8bn, entre outros que estão")
+
